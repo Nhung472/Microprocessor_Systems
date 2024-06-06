@@ -1,0 +1,221 @@
+CCS PCM C Compiler, Version 4.074, 22034               06-Mar-24 10:04
+
+               Filename: 7seg.lst
+
+               ROM used: 123 words (2%)
+                         Largest free fragment is 2048
+               RAM used: 19 (5%) at main() level
+                         19 (5%) worst case
+               Stack:    1 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   018
+0003:  NOP
+.................... /*turn on number 1 
+.................... #include <16F887.h> 
+.................... #DEVICE *= 16 ADC = 10 
+.................... #FUSES HS, NOWDT, NOPUT, NOLVP 
+.................... #USE DELAY(CLOCK = 8M) 
+....................  
+.................... void main() { 
+....................     set_tris_b(0b00000000); 
+....................     output_a(0b00000000); 
+....................     output_b(0b11111001);  
+.................... }*/ 
+....................  
+.................... /*turn on number 0 
+.................... #include <16F887.h> 
+.................... #DEVICE *= 16 ADC = 10 
+.................... #FUSES HS, NOWDT, NOPUT, NOLVP 
+.................... #USE DELAY(CLOCK = 8M) 
+....................  
+.................... void main() { 
+....................     set_tris_b(0b00000000); 
+....................     output_a(0b00000000); 
+....................     output_b(0b11000000);  
+.................... }*/ 
+....................  
+.................... /*turn on from 9-1 
+.................... #include <16F887.h> 
+.................... #DEVICE *=16 ADC=10 
+.................... #FUSES HS,NOWDT,NOPUT,NOLVP 
+.................... #USE DELAY(CLOCK=8M) 
+....................  
+.................... const char led7[]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f}; 
+.................... void main() 
+.................... {		 
+.................... 	int i; 
+....................     set_tris_b(0b00000000); 
+....................     set_tris_a(0b00000000); 
+....................     output_a(0b00000111); 
+....................  	 
+.................... 	while(true){ 
+.................... 		 for(i = 9; i >= 1;) 
+....................         { 
+....................             output_a(0b00001000);  
+....................             output_b(~led7[i]);    
+....................             delay_ms(500); 
+....................             i = i - 1; 
+....................         } 
+.................... 	} 
+.................... }*/ 
+....................  
+.................... #include <16f887.h> 
+.................... //////// Standard Header file for the PIC16F887 device //////////////// 
+.................... #device PIC16F887 
+.................... #list 
+....................  
+.................... #DEVICE *=16 ADC=8 
+.................... #FUSES NOWDT, HS, NOPUT, NOBROWNOUT, NOPROTECT, NOLVP 
+.................... #USE delay(clock=8000000) 
+0004:  MOVLW  2C
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   017
+000A:  MOVLW  02
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  97
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  DECFSZ 00,F
+0016:  GOTO   00A
+0017:  RETLW  00
+.................... char led7[]={0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f}; 
+*
+002B:  MOVLW  3F
+002C:  BCF    03.6
+002D:  MOVWF  20
+002E:  MOVLW  06
+002F:  MOVWF  21
+0030:  MOVLW  5B
+0031:  MOVWF  22
+0032:  MOVLW  4F
+0033:  MOVWF  23
+0034:  MOVLW  66
+0035:  MOVWF  24
+0036:  MOVLW  6D
+0037:  MOVWF  25
+0038:  MOVLW  7D
+0039:  MOVWF  26
+003A:  MOVLW  07
+003B:  MOVWF  27
+003C:  MOVLW  7F
+003D:  MOVWF  28
+003E:  MOVLW  6F
+003F:  MOVWF  29
+.................... void main() 
+.................... { 
+*
+0018:  CLRF   04
+0019:  BCF    03.7
+001A:  MOVLW  1F
+001B:  ANDWF  03,F
+001C:  BSF    03.5
+001D:  BSF    03.6
+001E:  MOVF   09,W
+001F:  ANDLW  C0
+0020:  MOVWF  09
+0021:  BCF    03.6
+0022:  BCF    1F.4
+0023:  BCF    1F.5
+0024:  MOVLW  00
+0025:  BSF    03.6
+0026:  MOVWF  08
+0027:  BCF    03.5
+0028:  CLRF   07
+0029:  CLRF   08
+002A:  CLRF   09
+.................... 	int i; 
+.................... 	int j; 
+.................... 	set_tris_b(0b00000000); 
+*
+0040:  MOVLW  00
+0041:  BSF    03.5
+0042:  MOVWF  06
+.................... 	set_tris_d(0b00000000); 
+0043:  MOVWF  08
+.................... 	set_tris_a(0b00000000); 
+0044:  MOVWF  05
+.................... 	output_a(0b00001000); 
+0045:  CLRF   05
+0046:  MOVLW  08
+0047:  BCF    03.5
+0048:  MOVWF  05
+.................... 	output_d(0b00001000); 
+0049:  BSF    03.5
+004A:  CLRF   08
+004B:  BCF    03.5
+004C:  MOVWF  08
+.................... 	while(1) 
+.................... 	{ 
+.................... 		for (i = 0; i <= 9; i++){ 
+004D:  CLRF   2A
+004E:  MOVF   2A,W
+004F:  SUBLW  09
+0050:  BTFSS  03.0
+0051:  GOTO   079
+.................... 			output_b(~led7[i]); 
+0052:  MOVLW  20
+0053:  ADDWF  2A,W
+0054:  MOVWF  04
+0055:  BCF    03.7
+0056:  MOVF   00,W
+0057:  XORLW  FF
+0058:  MOVWF  2C
+0059:  BSF    03.5
+005A:  CLRF   06
+005B:  BCF    03.5
+005C:  MOVF   2C,W
+005D:  MOVWF  06
+.................... 			delay_ms(250); 
+005E:  MOVLW  FA
+005F:  MOVWF  2C
+0060:  CALL   004
+.................... 			for (j=0;j<=9;j++) 
+0061:  CLRF   2B
+0062:  MOVF   2B,W
+0063:  SUBLW  09
+0064:  BTFSS  03.0
+0065:  GOTO   077
+.................... 			{ 
+.................... 			output_d(~led7[j]); 
+0066:  MOVLW  20
+0067:  ADDWF  2B,W
+0068:  MOVWF  04
+0069:  BCF    03.7
+006A:  MOVF   00,W
+006B:  XORLW  FF
+006C:  MOVWF  2C
+006D:  BSF    03.5
+006E:  CLRF   08
+006F:  BCF    03.5
+0070:  MOVF   2C,W
+0071:  MOVWF  08
+.................... 			delay_ms(250); 
+0072:  MOVLW  FA
+0073:  MOVWF  2C
+0074:  CALL   004
+.................... 			} 
+0075:  INCF   2B,F
+0076:  GOTO   062
+.................... 		} 
+0077:  INCF   2A,F
+0078:  GOTO   04E
+.................... 	} 
+0079:  GOTO   04D
+.................... } 
+007A:  SLEEP
+
+Configuration Fuses:
+   Word  1: 2CF2   HS NOWDT NOPUT MCLR NOPROTECT NOCPD NOBROWNOUT IESO FCMEN NOLVP NODEBUG
+   Word  2: 3FFF   NOWRT BORV40

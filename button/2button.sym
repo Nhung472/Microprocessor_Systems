@@ -1,0 +1,58 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004     @WRITE_PROGRAM_MEMORY8.P2
+015-016 CCP_1
+015     CCP_1_LOW
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B-01C CCP_2
+01C     CCP_2_HIGH
+021     main.@SCRATCH1
+021     Button1.@SCRATCH1
+021     Button2.@SCRATCH1
+022     @delay_ms1.P1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+107.6   C1OUT
+108.6   C2OUT
+10D-10E @READ_PROGRAM_MEMORY8.P1
+10D-10E @WRITE_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+0004  @delay_ms1
+004D  main
+0019  Button1
+0033  Button2
+004D  @cinit
+
+Project Directory:
+    D:\study\II_2023_2024\He_thong_vi_xu_ly\button\
+
+Project Files:
+    2button.c
+    C:\Program Files (x86)\PICC\devices\16f887.h
+
+Units:
+    2button.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F887
+    Pointer Size:   16
+    ADC Range:      0-1023
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      2button.err
+    Ext Symbols: 2button.esym
+    INHX8:       2button.hex
+    Symbols:     2button.sym
+    List:        2button.lst
+    Debug/COFF:  2button.cof
+    Project:     2button.PJT
+    Call Tree:   2button.tre
+    Statistics:  2button.sta

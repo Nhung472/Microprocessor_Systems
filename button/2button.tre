@@ -1,0 +1,9 @@
+ÀÄ2button
+   ÀÄmain  0/52  Ram=1
+      ÃÄ??0??
+      ÃÄButton1  0/26  Ram=1
+      ³  ÃÄ@delay_ms1  0/21  Ram=1
+      ³  ÀÄ@delay_ms1  0/21  Ram=1
+      ÀÄButton2  0/26  Ram=1
+         ÃÄ@delay_ms1  0/21  Ram=1
+         ÀÄ@delay_ms1  0/21  Ram=1

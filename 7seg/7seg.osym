@@ -1,0 +1,34 @@
+_RETURN_
+CCP_1
+CCP_1_LOW
+CCP_1_HIGH
+CCP_2
+CCP_2_LOW
+CCP_2_HIGH
+C1OUT
+C2OUT
+
+Project Directory:
+    D:\study\II_2023_2024\He_thong_vi_xu_ly\7seg\
+
+Project Files:
+    7seg.c
+    C:\Program Files (x86)\PICC\devices\16F887.h
+
+Units:
+    7seg.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F887
+    Pointer Size:   16
+    ADC Range:      0-1023
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+    Output file:    Relocatable
+
+Output Files:
+    Errors:      7seg.err
+    Ext Symbols: 7seg.esym
+    Object:      7seg.o
+    Symbols:     7seg.osym

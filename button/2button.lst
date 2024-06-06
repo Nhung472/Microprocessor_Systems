@@ -1,0 +1,201 @@
+CCS PCM C Compiler, Version 4.074, 22034               21-Feb-24 11:14
+
+               Filename: 2button.lst
+
+               ROM used: 129 words (2%)
+                         Largest free fragment is 2048
+               RAM used: 7 (2%) at main() level
+                         8 (2%) worst case
+               Stack:    2 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   04D
+0003:  NOP
+.................... #include<16f887.h> 
+.................... //////// Standard Header file for the PIC16F887 device //////////////// 
+.................... #device PIC16F887 
+.................... #list 
+....................  
+.................... #device *=16 ADC=10 
+.................... #FUSES HS, NOWDT, NOPUT, NOLVP 
+.................... #use delay(clock=16M) 
+0004:  MOVLW  22
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   018
+000A:  MOVLW  05
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  2E
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  GOTO   016
+0016:  DECFSZ 00,F
+0017:  GOTO   00A
+0018:  RETLW  00
+....................  
+.................... void Button1(); 
+.................... void Button2(); 
+....................  
+.................... void main() 
+.................... { 
+*
+004D:  CLRF   04
+004E:  BCF    03.7
+004F:  MOVLW  1F
+0050:  ANDWF  03,F
+0051:  BSF    03.5
+0052:  BSF    03.6
+0053:  MOVF   09,W
+0054:  ANDLW  C0
+0055:  MOVWF  09
+0056:  BCF    03.6
+0057:  BCF    1F.4
+0058:  BCF    1F.5
+0059:  MOVLW  00
+005A:  BSF    03.6
+005B:  MOVWF  08
+005C:  BCF    03.5
+005D:  CLRF   07
+005E:  CLRF   08
+005F:  CLRF   09
+....................     set_tris_b(0b00000000); 
+0060:  MOVLW  00
+0061:  BSF    03.5
+0062:  BCF    03.6
+0063:  MOVWF  06
+....................     set_tris_a(0b11111111); 
+0064:  MOVLW  FF
+0065:  MOVWF  05
+....................     set_tris_d(0b00000000); 
+0066:  MOVLW  00
+0067:  MOVWF  08
+....................     output_b(0x00);  
+0068:  CLRF   06
+0069:  BCF    03.5
+006A:  CLRF   06
+....................     output_low(pin_b0); 
+006B:  BSF    03.5
+006C:  BCF    06.0
+006D:  BCF    03.5
+006E:  BCF    06.0
+....................     output_low(pin_b1);  
+006F:  BSF    03.5
+0070:  BCF    06.1
+0071:  BCF    03.5
+0072:  BCF    06.1
+....................  
+....................     while(1) 
+....................     { 
+....................         if(input(pin_a3) == 0) 
+0073:  BSF    03.5
+0074:  BSF    05.3
+0075:  BCF    03.5
+0076:  BTFSC  05.3
+0077:  GOTO   079
+....................         { 
+....................             Button1(); 
+0078:  GOTO   019
+....................         } 
+....................         if(input(pin_a4) == 0)  
+0079:  BSF    03.5
+007A:  BSF    05.4
+007B:  BCF    03.5
+007C:  BTFSC  05.4
+007D:  GOTO   07F
+....................         { 
+....................             Button2(); 
+007E:  GOTO   033
+....................         } 
+....................     } 
+007F:  GOTO   073
+.................... } 
+....................  
+.................... void Button1() 
+.................... { 
+0080:  SLEEP
+....................     delay_ms(50);  
+*
+0019:  MOVLW  32
+001A:  MOVWF  22
+001B:  CALL   004
+....................     while(input(pin_a3) == 0) 
+....................     { 
+001C:  BSF    03.5
+001D:  BSF    05.3
+001E:  BCF    03.5
+001F:  BTFSS  05.3
+....................     } 
+0020:  GOTO   01C
+....................     output_high(pin_b0); 
+0021:  BSF    03.5
+0022:  BCF    06.0
+0023:  BCF    03.5
+0024:  BSF    06.0
+....................     output_low(pin_b1);  
+0025:  BSF    03.5
+0026:  BCF    06.1
+0027:  BCF    03.5
+0028:  BCF    06.1
+....................     delay_ms(500); 
+0029:  MOVLW  02
+002A:  MOVWF  21
+002B:  MOVLW  FA
+002C:  MOVWF  22
+002D:  CALL   004
+002E:  DECFSZ 21,F
+002F:  GOTO   02B
+.................... } 
+0030:  BCF    0A.3
+0031:  BCF    0A.4
+0032:  GOTO   079 (RETURN)
+....................  
+.................... void Button2() 
+.................... { 
+....................     delay_ms(50);  
+0033:  MOVLW  32
+0034:  MOVWF  22
+0035:  CALL   004
+....................     while(input(pin_a4) == 0) 
+....................     { 
+0036:  BSF    03.5
+0037:  BSF    05.4
+0038:  BCF    03.5
+0039:  BTFSS  05.4
+....................     } 
+003A:  GOTO   036
+....................     output_low(pin_b0);  
+003B:  BSF    03.5
+003C:  BCF    06.0
+003D:  BCF    03.5
+003E:  BCF    06.0
+....................     output_high(pin_b1); 
+003F:  BSF    03.5
+0040:  BCF    06.1
+0041:  BCF    03.5
+0042:  BSF    06.1
+....................     delay_ms(500); 
+0043:  MOVLW  02
+0044:  MOVWF  21
+0045:  MOVLW  FA
+0046:  MOVWF  22
+0047:  CALL   004
+0048:  DECFSZ 21,F
+0049:  GOTO   045
+.................... } 
+004A:  BCF    0A.3
+004B:  BCF    0A.4
+004C:  GOTO   07F (RETURN)
+
+Configuration Fuses:
+   Word  1: 2FF2   HS NOWDT NOPUT MCLR NOPROTECT NOCPD BROWNOUT IESO FCMEN NOLVP NODEBUG
+   Word  2: 3FFF   NOWRT BORV40

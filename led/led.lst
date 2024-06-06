@@ -1,0 +1,96 @@
+CCS PCM C Compiler, Version 4.074, 22034               31-Jan-24 10:51
+
+               Filename: led.lst
+
+               ROM used: 60 words (1%)
+                         Largest free fragment is 2048
+               RAM used: 6 (2%) at main() level
+                         7 (2%) worst case
+               Stack:    1 locations
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   018
+0003:  NOP
+.................... #include<16f887.h> 
+.................... //////// Standard Header file for the PIC16F887 device //////////////// 
+.................... #device PIC16F887 
+.................... #list 
+....................  
+.................... #device *=16 ADC=8 
+.................... #FUSES HS, NOWDT, NOPUT, NOPROTECT, NOBROWNOUT, NOLVP 
+.................... #use delay(clock=8000000) 
+0004:  MOVLW  21
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   017
+000A:  MOVLW  02
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  97
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  DECFSZ 00,F
+0016:  GOTO   00A
+0017:  RETLW  00
+.................... #byte PORTB = 0x06 
+....................   
+.................... void main(){ 
+0018:  CLRF   04
+0019:  BCF    03.7
+001A:  MOVLW  1F
+001B:  ANDWF  03,F
+001C:  BSF    03.5
+001D:  BSF    03.6
+001E:  MOVF   09,W
+001F:  ANDLW  C0
+0020:  MOVWF  09
+0021:  BCF    03.6
+0022:  BCF    1F.4
+0023:  BCF    1F.5
+0024:  MOVLW  00
+0025:  BSF    03.6
+0026:  MOVWF  08
+0027:  BCF    03.5
+0028:  CLRF   07
+0029:  CLRF   08
+002A:  CLRF   09
+.................... 	set_tris_b(0b10101010); 
+002B:  MOVLW  AA
+002C:  BSF    03.5
+002D:  BCF    03.6
+002E:  MOVWF  06
+.................... 	PORTB = 0x00; 
+002F:  BCF    03.5
+0030:  CLRF   06
+.................... 	while(true){ 
+.................... 		PORTB = 0xff; 
+0031:  MOVLW  FF
+0032:  MOVWF  06
+.................... 		delay_ms(250); 
+0033:  MOVLW  FA
+0034:  MOVWF  21
+0035:  CALL   004
+.................... 		PORTB = 0x00; 
+0036:  CLRF   06
+.................... 		delay_ms(250); 
+0037:  MOVLW  FA
+0038:  MOVWF  21
+0039:  CALL   004
+.................... 	} 
+003A:  GOTO   031
+....................  
+.................... } 
+003B:  SLEEP
+
+Configuration Fuses:
+   Word  1: 2CF2   HS NOWDT NOPUT MCLR NOPROTECT NOCPD NOBROWNOUT IESO FCMEN NOLVP NODEBUG
+   Word  2: 3FFF   NOWRT BORV40
